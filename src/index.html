@@ -35,11 +35,28 @@
             <option value="dinner">Dinner</option>
             <option value="dessert">Dessert</option>
           </select>
-          <textarea
-            id="recipe-ingredients"
-            placeholder="Ingredients (one per line)"
-            required
-          ></textarea>
+
+          <div class="ingredients-section">
+            <h3>Ingredients</h3>
+            <div id="ingredients-container">
+              <div class="ingredient-row">
+                <span class="ingredient-number">1.</span>
+                <input
+                  type="text"
+                  class="ingredient-name"
+                  placeholder="Ingredient"
+                  required
+                />
+                <input
+                  type="text"
+                  class="ingredient-quantity"
+                  placeholder="Quantity"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
           <textarea
             id="recipe-instructions"
             placeholder="Instructions"

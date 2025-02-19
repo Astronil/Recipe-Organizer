@@ -86,9 +86,25 @@ button:hover {
 }
 
 .recipe-card {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 4px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-2px);
+}
+
+.recipe-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.recipe-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 #ai-chat {
@@ -125,4 +141,33 @@ button:hover {
         width: 100%;
         margin-top: 2rem;
     }
+}
+
+.ingredients-section {
+    margin: 1rem 0;
+}
+
+.ingredient-row {
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.ingredient-number {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.ingredient-name, .ingredient-quantity {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+.ingredient-name:focus, .ingredient-quantity:focus {
+    border-color: var(--primary-color);
+    outline: none;
 }

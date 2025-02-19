@@ -1,3 +1,6 @@
+import { db } from "../config/firebase.config.js";
+import { chatbot } from "./chatbot.js";
+
 // Firebase configuration
 const firebaseConfig = {
   // Add your Firebase config here
@@ -5,7 +8,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 
 // DOM Elements
 const addRecipeForm = document.getElementById("add-recipe-form");
@@ -52,16 +54,67 @@ async function authenticateWithBiometrics() {
   }
 }
 
-// Recipe Management
+function handleIngredientInputs() {
+  const container = document.getElementById("ingredients-container");
+
+  // Monitor all ingredient inputs
+  container.addEventListener("input", (e) => {
+    if (
+      e.target.classList.contains("ingredient-name") ||
+      e.target.classList.contains("ingredient-quantity")
+    ) {
+      const currentRow = e.target.closest(".ingredient-row");
+      const isLastRow = currentRow === container.lastElementChild;
+
+      // If the current row is the last one and has input, add a new row
+      if (isLastRow && e.target.value.trim() !== "") {
+        addNewIngredientRow();
+      }
+
+      // Update row numbers
+      updateIngredientNumbers();
+    }
+  });
+}
+
+function addNewIngredientRow() {
+  const container = document.getElementById("ingredients-container");
+  const newRow = document.createElement("div");
+  newRow.className = "ingredient-row";
+  newRow.innerHTML = `
+        <span class="ingredient-number">${container.children.length + 1}.</span>
+        <input type="text" class="ingredient-name" placeholder="Ingredient" required>
+        <input type="text" class="ingredient-quantity" placeholder="Quantity" required>
+    `;
+  container.appendChild(newRow);
+}
+
+function updateIngredientNumbers() {
+  const rows = document.querySelectorAll(".ingredient-row");
+  rows.forEach((row, index) => {
+    row.querySelector(".ingredient-number").textContent = `${index + 1}.`;
+  });
+}
+
+// Modified addRecipe function to handle new ingredient format
 function addRecipe(e) {
   e.preventDefault();
+
+  const ingredients = [];
+  const ingredientRows = document.querySelectorAll(".ingredient-row");
+
+  ingredientRows.forEach((row) => {
+    const name = row.querySelector(".ingredient-name").value.trim();
+    const quantity = row.querySelector(".ingredient-quantity").value.trim();
+    if (name && quantity) {
+      ingredients.push({ name, quantity });
+    }
+  });
 
   const recipe = {
     name: document.getElementById("recipe-name").value,
     category: document.getElementById("recipe-category").value,
-    ingredients: document
-      .getElementById("recipe-ingredients")
-      .value.split("\n"),
+    ingredients,
     instructions: document.getElementById("recipe-instructions").value,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   };
@@ -70,6 +123,8 @@ function addRecipe(e) {
     .add(recipe)
     .then(() => {
       addRecipeForm.reset();
+      document.getElementById("ingredients-container").innerHTML = "";
+      addNewIngredientRow(); // Add initial ingredient row
       loadRecipes();
     })
     .catch((error) => console.error("Error adding recipe:", error));
@@ -97,7 +152,9 @@ function createRecipeCard(recipe, id) {
         <h3>${recipe.name}</h3>
         <p><strong>Category:</strong> ${recipe.category}</p>
         <p><strong>Ingredients:</strong></p>
-        <ul>${recipe.ingredients.map((ing) => `<li>${ing}</li>`).join("")}</ul>
+        <ul>${recipe.ingredients
+          .map((ing) => `<li>${ing.name} - ${ing.quantity}</li>`)
+          .join("")}</ul>
         <p><strong>Instructions:</strong></p>
         <p>${recipe.instructions}</p>
         <button onclick="deleteRecipe('${id}')">Delete</button>
@@ -128,3 +185,9 @@ categoryFilter.addEventListener("change", loadRecipes);
 
 // Initial load
 loadRecipes();
+
+// Initialize the form with one ingredient row
+document.addEventListener("DOMContentLoaded", () => {
+  addNewIngredientRow();
+  handleIngredientInputs();
+});
