@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Checker</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Recipe Checker</h1>
+      <div id="auth-section">
+        <button id="biometric-login">Login with Biometrics</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="recipe-form">
+        <h2>Add New Recipe</h2>
+        <form id="add-recipe-form">
+          <input
+            type="text"
+            id="recipe-name"
+            placeholder="Recipe Name"
+            required
+          />
+          <select id="recipe-category" required>
+            <option value="">Select Category</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="dessert">Dessert</option>
+          </select>
+          <textarea
+            id="recipe-ingredients"
+            placeholder="Ingredients (one per line)"
+            required
+          ></textarea>
+          <textarea
+            id="recipe-instructions"
+            placeholder="Instructions"
+            required
+          ></textarea>
+          <button type="submit">Add Recipe</button>
+        </form>
+      </section>
+
+      <section id="recipe-list">
+        <h2>My Recipes</h2>
+        <div class="filters">
+          <input
+            type="text"
+            id="search-recipe"
+            placeholder="Search recipes..."
+          />
+          <select id="category-filter">
+            <option value="">All Categories</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="dessert">Dessert</option>
+          </select>
+        </div>
+        <div id="recipes-container"></div>
+      </section>
+
+      <section id="ai-chat">
+        <h2>Recipe Assistant</h2>
+        <div id="chat-messages"></div>
+        <div class="chat-input">
+          <input
+            type="text"
+            id="chat-input"
+            placeholder="Ask about recipes..."
+          />
+          <button id="send-message">Send</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
