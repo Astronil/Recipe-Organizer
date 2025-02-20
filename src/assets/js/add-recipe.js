@@ -1,4 +1,4 @@
-import { db } from "../..config/firebase.config.js"; // Import the initialized Firestore database
+import { db } from "./firebase.config.js"; // Import the initialized Firestore database
 
 const recipesCollection = db.collection("recipes");
 
@@ -55,12 +55,16 @@ recipeForm.addEventListener("submit", async (e) => {
     return;
   }
 
+  const isFavorite =
+    document.querySelector('input[name="recipe-favorite"]:checked').value ===
+    "yes";
+
   const recipe = {
     name: document.getElementById("recipe-name").value,
     category: document.getElementById("recipe-category").value,
     ingredients,
     instructions: document.getElementById("recipe-instructions").value,
-    isFavorite: document.getElementById("recipe-favorite").checked,
+    isFavorite,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   };
 
@@ -98,7 +102,9 @@ function showNotification(message, type) {
   }, 3000);
 }
 
-// Initialize with one ingredient row
+// Initialize with three ingredient rows
 document.addEventListener("DOMContentLoaded", () => {
-  addIngredientBtn.click(); // Add initial ingredient row
+  for (let i = 0; i < 3; i++) {
+    addIngredientBtn.click();
+  }
 });
