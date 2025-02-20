@@ -1,22 +1,28 @@
 // Import the Firebase modules
-import firebase from "firebase/app";
-import "firebase/firestore";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
+// Your web app's Firebase configuration (Replace with actual values)
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
+  apiKey: "AIzaSyBhEXY5ATio_B9FYk9NMO5EWW6JuP4gF34",
+  authDomain: "recipe-cheker.firebaseapp.com",
+  projectId: "recipe-cheker",
+  storageBucket: "recipe-cheker.firebasestorage.app",
+  messagingSenderId: "422740161285",
+  appId: "1:422740161285:web:b2526047aac4c4a6733d6c",
 };
 
 // Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
 
-// Export the Firestore database
-const db = firebase.firestore();
-export { db };
+// Initialize Firestore
+const db = getFirestore(app);
+
+export { db, collection, addDoc, getDocs, deleteDoc, doc };

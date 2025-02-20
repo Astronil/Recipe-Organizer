@@ -1,4 +1,4 @@
-import { db } from "./firebase.config.js"; // Import the initialized Firestore database
+import { db } from "../..config/firebase.config.js"; // Import the initialized Firestore database
 
 const recipesCollection = db.collection("recipes");
 
