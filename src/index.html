@@ -3,102 +3,123 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe Checker</title>
+    <title>Recipe Dashboard</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Add Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   </head>
   <body>
-    <header>
-      <h1>Recipe Checker</h1>
-      <div id="auth-section">
-        <button id="biometric-login">Login with Biometrics</button>
-      </div>
-    </header>
+    <div class="dashboard">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <span>RecipeHub</span>
+          </div>
+        </div>
 
-    <main>
-      <section id="recipe-form">
-        <h2>Add New Recipe</h2>
-        <form id="add-recipe-form">
-          <input
-            type="text"
-            id="recipe-name"
-            placeholder="Recipe Name"
-            required
-          />
-          <select id="recipe-category" required>
-            <option value="">Select Category</option>
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-            <option value="dessert">Dessert</option>
-          </select>
+        <nav class="sidebar-nav">
+          <a href="index.html" class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="pages/add-recipe.html" class="nav-item">
+            <i class="fas fa-plus-circle"></i>
+            <span>New Recipe</span>
+          </a>
+          <a href="pages/favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>Favorites</span>
+          </a>
+          <a href="pages/categories.html" class="nav-item">
+            <i class="fas fa-tags"></i>
+            <span>Categories</span>
+          </a>
+        </nav>
 
-          <div class="ingredients-section">
-            <h3>Ingredients</h3>
-            <div id="ingredients-container">
-              <div class="ingredient-row">
-                <span class="ingredient-number">1.</span>
-                <input
-                  type="text"
-                  class="ingredient-name"
-                  placeholder="Ingredient"
-                  required
-                />
-                <input
-                  type="text"
-                  class="ingredient-quantity"
-                  placeholder="Quantity"
-                  required
-                />
+        <div class="sidebar-footer">
+          <button id="biometric-login" class="btn-biometric">
+            <i class="fas fa-fingerprint"></i>
+            <span>Secure Login</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="top-bar">
+          <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              id="search-recipe"
+              placeholder="Search recipes..."
+            />
+          </div>
+          <div class="user-menu">
+            <img
+              src="assets/images/default-avatar.png"
+              alt="User"
+              class="avatar"
+            />
+            <span class="username">John Doe</span>
+          </div>
+        </header>
+
+        <div class="content-area">
+          <div class="dashboard-stats">
+            <div class="stat-card">
+              <i class="fas fa-book"></i>
+              <div class="stat-info">
+                <h3>Total Recipes</h3>
+                <span id="total-recipes">0</span>
+              </div>
+            </div>
+            <div class="stat-card">
+              <i class="fas fa-heart"></i>
+              <div class="stat-info">
+                <h3>Favorites</h3>
+                <span id="total-favorites">0</span>
               </div>
             </div>
           </div>
 
-          <textarea
-            id="recipe-instructions"
-            placeholder="Instructions"
-            required
-          ></textarea>
-          <button type="submit">Add Recipe</button>
-        </form>
-      </section>
-
-      <section id="recipe-list">
-        <h2>My Recipes</h2>
-        <div class="filters">
-          <input
-            type="text"
-            id="search-recipe"
-            placeholder="Search recipes..."
-          />
-          <select id="category-filter">
-            <option value="">All Categories</option>
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-            <option value="dessert">Dessert</option>
-          </select>
+          <div id="recipes-container" class="recipes-grid"></div>
         </div>
-        <div id="recipes-container"></div>
-      </section>
+      </main>
 
-      <section id="ai-chat">
-        <h2>Recipe Assistant</h2>
-        <div id="chat-messages"></div>
-        <div class="chat-input">
-          <input
-            type="text"
-            id="chat-input"
-            placeholder="Ask about recipes..."
-          />
-          <button id="send-message">Send</button>
+      <div id="ai-assistant" class="ai-assistant collapsed">
+        <div class="ai-header">
+          <div class="ai-title">
+            <i class="fas fa-robot"></i>
+            <span>Recipe Assistant</span>
+          </div>
+          <button id="ai-toggle" class="ai-toggle">
+            <i class="fas fa-chevron-up"></i>
+          </button>
         </div>
-      </section>
-    </main>
+        <div class="ai-body">
+          <div id="chat-messages" class="chat-messages"></div>
+          <div class="chat-input-container">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Ask about recipes..."
+            />
+            <button id="send-message" class="btn-send">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <script src="assets/js/app.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
   </body>
 </html>

@@ -1,3 +1,8 @@
+// Import the Firebase modules
+import firebase from "firebase/app";
+import "firebase/firestore";
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -8,7 +13,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
+// Export the Firestore database
+const db = firebase.firestore();
 export { db };

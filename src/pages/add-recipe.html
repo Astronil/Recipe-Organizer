@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Recipe - RecipeHub</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Include the sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <span>RecipeHub</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="../index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="add-recipe.html" class="nav-item active">
+            <i class="fas fa-plus-circle"></i>
+            <span>New Recipe</span>
+          </a>
+          <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>Favorites</span>
+          </a>
+          <a href="categories.html" class="nav-item">
+            <i class="fas fa-tags"></i>
+            <span>Categories</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button id="biometric-login" class="btn-biometric">
+            <i class="fas fa-fingerprint"></i>
+            <span>Secure Login</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="content-area">
+          <div class="form-container">
+            <h2>Add New Recipe</h2>
+            <form id="add-recipe-form">
+              <div class="form-group">
+                <label>Recipe Name</label>
+                <input type="text" id="recipe-name" required />
+              </div>
+
+              <div class="form-group">
+                <label>Category</label>
+                <select id="recipe-category" required>
+                  <option value="">Select Category</option>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
+                  <option value="dessert">Dessert</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Favorite</label>
+                <input type="checkbox" id="recipe-favorite" />
+              </div>
+
+              <div class="ingredients-section">
+                <label>Ingredients</label>
+                <div id="ingredients-container"></div>
+                <button type="button" id="add-ingredient" class="btn-secondary">
+                  <i class="fas fa-plus"></i> Add Ingredient
+                </button>
+              </div>
+
+              <div class="form-group">
+                <label>Instructions</label>
+                <textarea id="recipe-instructions" required></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary">
+                <i class="fas fa-save"></i> Save Recipe
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="../assets/js/add-recipe.js"></script>
+  </body>
+</html>

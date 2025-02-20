@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categories - RecipeHub</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Include the sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo">
+            <i class="fas fa-utensils"></i>
+            <span>RecipeHub</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="../index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="add-recipe.html" class="nav-item">
+            <i class="fas fa-plus-circle"></i>
+            <span>New Recipe</span>
+          </a>
+          <a href="favorites.html" class="nav-item">
+            <i class="fas fa-heart"></i>
+            <span>Favorites</span>
+          </a>
+          <a href="categories.html" class="nav-item active">
+            <i class="fas fa-tags"></i>
+            <span>Categories</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button id="biometric-login" class="btn-biometric">
+            <i class="fas fa-fingerprint"></i>
+            <span>Secure Login</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="content-area">
+          <h2>Recipe Categories</h2>
+          <div id="categories-container"></div>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="../assets/js/categories.js"></script>
+  </body>
+</html>
